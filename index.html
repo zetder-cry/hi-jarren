@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>a little test for u, jarren</title>
+<style>
+body {
+  background: #0f0f0f;
+  color: #eaeaea;
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+.container {
+  max-width: 700px;
+  width: 100%;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.warning {
+  color: #ff6b6b;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.box {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #000;
+  color: #fff;
+  border: 1px solid #444;
+}
+button:hover {
+  background: #222;
+  cursor: pointer;
+}
+.hidden {
+  display: none;
+}
+.log {
+  font-size: 13px;
+  color: #aaa;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h1>HOPE YOU WIN</h1>
+  <div class="warning">
+    ini hanya test simple saja, jarren
+  </div>
+
+  <div class="box" id="riddle1">
+    <p><b>RIDDLE 1</b></p>
+    <p>
+      Aku selalu ada di awal,  
+      tapi mati jika kau sebutkan.  
+      Aku tak terlihat,  
+      tapi tanpaku semua rencana gagal.  
+    </p>
+    <input id="a1" placeholder="Jawaban satu kata">
+    <button onclick="check1()">Kirim</button>
+  </div>
+
+  <div class="box hidden" id="riddle2">
+    <p><b>RIDDLE 2</b></p>
+    <p>
+      Tiga orang berjanji datang.  
+      Dua datang tepat waktu.  
+      Satu datang terlambat tapi selalu memberi alasan.  
+      Siapa yang paling tidak bisa dipercaya?
+    </p>
+    <input id="a2" placeholder="Jawaban satu kata">
+    <button onclick="check2()">Kirim</button>
+  </div>
+
+  <div class="box hidden" id="riddle3">
+    <p><b>RIDDLE 3</b></p>
+    <p>
+      jika kamu serius dengan adik saya, bukankah dirimu seharusnya bertemu saya dahulu?
+      tenang, saya tidak menakutkan kok, datanglah dan berbicang dengan saya, jarren.  
+      lalu kembali ke sini setelah <b>24 jam</b>,  
+      dan ketik sebuah alamat.
+    </p>
+    <input id="a3" placeholder="Satu kata">
+    <button onclick="check3()">Kirim</button>
+    <div class="log" id="timer"></div>
+  </div>
+
+  <div class="box hidden" id="passed">
+    <p><b>SCREENING SELESAI</b></p>
+    <p>
+      bukan hal yang susahkan?.  
+    </p>
+  </div>
+</div>
+
+<script>
+let startTime = localStorage.getItem("startTime");
+if (!startTime) {
+  startTime = Date.now();
+  localStorage.setItem("startTime", startTime);
+}
+
+function check1() {
+  if (a1.value.toLowerCase() === "niat") {
+    document.getElementById("riddle2").classList.remove("hidden");
+  } else {
+    alert("Salah. Perhatiin makna, bukan bunyi.");
+  }
+}
+
+function check2() {
+  if (a2.value.toLowerCase() === "yang memberi alasan") {
+    document.getElementById("riddle3").classList.remove("hidden");
+    document.getElementById("timer").innerText =
+      "Catatan waktu disimpan. Jangan terburu-buru.";
+    localStorage.setItem("riddle3Start", Date.now());
+  } else {
+    alert("menyerah atau lanjut? itu semua ada ditanganmu");
+  }
+}
+
+function check3() {
+  const start = localStorage.getItem("riddle3Start");
+  const now = Date.now();
+  const diff = now - start;
+
+  if (diff < 86400000) {
+    alert("Terlalu cepat. Baca ulang perintahnya.");
+    return;
+  }
+
+  if (a3.value.toLowerCase() === "@j1static") {
+    document.getElementById("passed").classList.remove("hidden");
+  } else {
+    alert("tenang, saya hanya ingin bermain.");
+  }
+}
+</script>
+</body>
+</html>
